@@ -1,0 +1,34 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
+
+class PdfViewerPage extends StatelessWidget {
+  final String pdfPath;
+
+  const PdfViewerPage({Key? key, required this.pdfPath}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("PDF Viewer"),
+        centerTitle: true,
+      ),
+      body: PDFView(
+        filePath: pdfPath,
+        enableSwipe: true,
+        swipeHorizontal: true,
+        autoSpacing: false,
+        pageFling: true,
+        onRender: (pages) {
+          debugPrint('Document rendered with $pages pages');
+        },
+        onError: (error) {
+          debugPrint('Error while rendering PDF: $error');
+        },
+        onPageError: (page, error) {
+          debugPrint('Error on page $page: $error');
+        },
+      ),
+    );
+  }
+}
